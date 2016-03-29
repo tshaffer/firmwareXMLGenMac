@@ -52,8 +52,6 @@ namespace FirmwareXMLGen
 					FirmwareXmlGenShared.FirmwareXmlGen.OpenExistingXML(existingFilePath);
 					ObservableCollection<FirmwareXmlGenShared.FirmwareXmlGen.FirmwareFile> existingFWFiles = FirmwareXmlGenShared.FirmwareXmlGen.GetFirmwareFiles();
 
-//					DataSource.Firmware.Clear();
-
 					// Create the Firmware Table Data Source and populate it
 					var DataSource = new FirmwareTableDataSource ();
 
@@ -61,7 +59,6 @@ namespace FirmwareXMLGen
 						Firmware firmware = new Firmware(firmwareFile.Family, firmwareFile.Type, firmwareFile.Version, firmwareFile.BAVersion, firmwareFile.ForceDownload, firmwareFile.DontDownload);
 						DataSource.Firmware.Add(firmware);
 					}
-//					DataSource.Firmware.Add (new Firmware( "Monaco", "Beta", "5.1.69", "4.4", false, true ));
 
 					// Populate the Firmware Table
 					FirmwareTable.DataSource = DataSource;
@@ -84,17 +81,69 @@ namespace FirmwareXMLGen
 			}
 		}
 
-		partial void createFiles (Foundation.NSObject sender) {	
+		partial void createFiles (Foundation.NSObject sender) {
+
+			// update the firmwareFiles data structure based on what's in the table
+
+			NSTableView fwTable = FirmwareTable;
+			FirmwareXMLGen.FirmwareTableDataSource dataSource = (FirmwareXMLGen.FirmwareTableDataSource)fwTable.DataSource;
+
+			int numRows = (int)fwTable.RowCount;
+			for (int i = 0; i < numRows; i++) {
+
+				// family
+				string family = (fwTable.GetView(1, i, false) as NSTextField).StringValue;
+
+				// type
+				string type = (fwTable.GetView(2, i, false) as NSTextField).StringValue;
+
+				// version
+				string version = (fwTable.GetView(3, i, false) as NSTextField).StringValue;
+
+				// ba version
+				string baVersion = (fwTable.GetView(4, i, false) as NSTextField).StringValue;
+
+				// force download
+				bool forceDownload;
+				NSButton forceDownloadButton = (fwTable.GetView(5, i, false) as NSButton);
+				NSCellStateValue forceDownloadState = forceDownloadButton.State;
+				if (forceDownloadState == NSCellStateValue.On) {
+					forceDownload = true;
+				}
+				else {
+					forceDownload = false;
+				}
+
+				// don't download
+				bool dontDownload;
+				NSButton dontDownloadButton = (fwTable.GetView(6, i, false) as NSButton);
+				NSCellStateValue dontDownloadState = dontDownloadButton.State;
+				if (dontDownloadState == NSCellStateValue.On) {
+					dontDownload = true;
+				}
+				else {
+					dontDownload = false;
+				}
+
+				Firmware firmware = dataSource.Firmware[i];
+				firmware.Family = family;
+				firmware.Type = type;
+				firmware.Version = version;
+				firmware.BAVersion = baVersion;
+				firmware.ForceDownload = forceDownload;
+				firmware.DontDownload = dontDownload;
+			}
+
 			FirmwareXmlGenShared.FirmwareXmlGen.Create(existingFile.StringValue, outputFolder.StringValue, outputFile.StringValue);
 		}
 
-//		private FirmwareTableDataSource DataSource = null;
 
 		public override void AwakeFromNib ()
 		{
 			base.AwakeFromNib ();
 
 			// Create the Firmware Table Data Source and populate it
+			// TODO - just test code
 			var DataSource = new FirmwareTableDataSource ();
 			DataSource.Firmware.Add (new Firmware( "Tiger", "Production", "6.0.51", "", false, true ));
 			DataSource.Firmware.Add (new Firmware( "Lynx", "Beta", "6.0.69", "", false, false ));
