@@ -13,6 +13,9 @@ namespace FirmwareXMLGen
 	partial class ViewController
 	{
 		[Outlet]
+		AppKit.NSTableColumn DontDownloadColumn { get; set; }
+
+		[Outlet]
 		AppKit.NSTextField existingFile { get; set; }
 
 		[Outlet]
@@ -47,6 +50,11 @@ namespace FirmwareXMLGen
 			if (existingFile != null) {
 				existingFile.Dispose ();
 				existingFile = null;
+			}
+
+			if (DontDownloadColumn != null) {
+				DontDownloadColumn.Dispose ();
+				DontDownloadColumn = null;
 			}
 
 			if (FamilyColumn != null) {

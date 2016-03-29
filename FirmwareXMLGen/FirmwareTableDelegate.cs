@@ -68,9 +68,21 @@ namespace FirmwareXMLGen
 					buttonView.Bordered = false;
 					buttonView.SetButtonType (NSButtonType.Switch);
 				}
+				buttonView.Title = "";
 				buttonView.State = NSCellStateValue.On;
 				return buttonView;
-//				break;
+			case "Don't Download":
+				bool dontDownloadOn = DataSource.Firmware [(int)row].DontDownload;
+				NSButton dontDownloadButtonView = (NSButton)tableView.MakeView (CellIdentifier, this);
+				if (dontDownloadButtonView == null) {
+					dontDownloadButtonView = new NSButton ();
+					dontDownloadButtonView.Identifier = CellIdentifier;
+					dontDownloadButtonView.Bordered = false;
+					dontDownloadButtonView.SetButtonType (NSButtonType.Switch);
+				}
+				dontDownloadButtonView.Title = "";
+				dontDownloadButtonView.State = NSCellStateValue.Off;
+				return dontDownloadButtonView;
 			}
 
 			return view;
