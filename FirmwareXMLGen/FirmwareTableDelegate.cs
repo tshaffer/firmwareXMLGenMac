@@ -15,6 +15,7 @@ using CoreGraphics;
 using Foundation;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace FirmwareXMLGen
 {
@@ -51,15 +52,48 @@ namespace FirmwareXMLGen
 			NSTextField view = null;
 
 			if (tableColumn.DataCell is NSTextFieldCell) {
-				view = (NSTextField)tableView.MakeView (CellIdentifier, this);
+
+				var id = "";
+				if (tableColumn.Title == "Version") {
+					id = "Version";
+				} else if (tableColumn.Title == "BA Version") {
+					id = "BA Version";
+				} else {
+					id = CellIdentifier;
+				}
+				view = (NSTextField)tableView.MakeView (id, this);
 				if (view == null) {
 					view = new NSTextField ();
 					view.Identifier = CellIdentifier;
 					view.BackgroundColor = NSColor.Clear;
 					view.Bordered = false;
+				}
+
+				if (tableColumn.Title == "Version" || tableColumn.Title == "BA Version") {
+					view.Selectable = true;
+					view.Editable = true;
+					view.Identifier = tableColumn.Title;
+					view.Tag = row;
+				} else {
 					view.Selectable = false;
 					view.Editable = false;
 				}
+
+				view.EditingEnded += (sender, e) => {
+
+					ObservableCollection<FirmwareXmlGenShared.FirmwareXmlGen.FirmwareFile> existingFWFiles = FirmwareXmlGenShared.FirmwareXmlGen.GetFirmwareFiles();
+					FirmwareXmlGenShared.FirmwareXmlGen.FirmwareFile existingFWFile = existingFWFiles[(int)view.Tag];
+
+					// Take action based on type
+					switch(view.Identifier) {
+						case "Version":
+							existingFWFile.Version = view.StringValue;
+							break;
+						case "BA Version":
+							existingFWFile.BAVersion = view.StringValue;
+							break; 
+					}
+				};
 			}
 
 			// Setup view based on the column selected
