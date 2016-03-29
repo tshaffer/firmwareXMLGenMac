@@ -58,7 +58,7 @@ namespace FirmwareXMLGen
 					var DataSource = new FirmwareTableDataSource ();
 
 					foreach (FirmwareXmlGenShared.FirmwareXmlGen.FirmwareFile firmwareFile in existingFWFiles) {
-						Firmware firmware = new Firmware(firmwareFile.Family, firmwareFile.Type, firmwareFile.Version, firmwareFile.BAVersion, false, false);
+						Firmware firmware = new Firmware(firmwareFile.Family, firmwareFile.Type, firmwareFile.Version, firmwareFile.BAVersion, firmwareFile.ForceDownload, firmwareFile.DontDownload);
 						DataSource.Firmware.Add(firmware);
 					}
 //					DataSource.Firmware.Add (new Firmware( "Monaco", "Beta", "5.1.69", "4.4", false, true ));
