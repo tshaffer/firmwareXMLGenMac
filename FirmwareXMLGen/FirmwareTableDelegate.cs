@@ -59,6 +59,12 @@ namespace FirmwareXMLGen
 			case "Type":
 				view.StringValue = DataSource.Firmware [(int)row].Type;
 				break;
+			case "Version":
+				view.StringValue = DataSource.Firmware [(int)row].Version;
+				break;
+			case "BA Version":
+				view.StringValue = DataSource.Firmware [(int)row].BAVersion;
+				break;
 			case "Force Download":
 				bool stateOn = DataSource.Firmware [(int)row].ForceDownload;
 				NSButton buttonView = (NSButton)tableView.MakeView (CellIdentifier, this);

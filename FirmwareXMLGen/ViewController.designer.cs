@@ -13,6 +13,9 @@ namespace FirmwareXMLGen
 	partial class ViewController
 	{
 		[Outlet]
+		AppKit.NSTableColumn BAVersionColumn { get; set; }
+
+		[Outlet]
 		AppKit.NSTableColumn DontDownloadColumn { get; set; }
 
 		[Outlet]
@@ -35,6 +38,9 @@ namespace FirmwareXMLGen
 
 		[Outlet]
 		AppKit.NSTableColumn TypeColumn { get; set; }
+
+		[Outlet]
+		AppKit.NSTableColumn VersionColumn { get; set; }
 
 		[Action ("browseForExistingFile:")]
 		partial void browseForExistingFile (Foundation.NSObject sender);
@@ -85,6 +91,16 @@ namespace FirmwareXMLGen
 			if (TypeColumn != null) {
 				TypeColumn.Dispose ();
 				TypeColumn = null;
+			}
+
+			if (VersionColumn != null) {
+				VersionColumn.Dispose ();
+				VersionColumn = null;
+			}
+
+			if (BAVersionColumn != null) {
+				BAVersionColumn.Dispose ();
+				BAVersionColumn = null;
 			}
 		}
 	}

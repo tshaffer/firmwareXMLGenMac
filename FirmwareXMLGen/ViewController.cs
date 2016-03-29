@@ -78,9 +78,9 @@ namespace FirmwareXMLGen
 
 			// Create the Firmware Table Data Source and populate it
 			var DataSource = new FirmwareTableDataSource ();
-			DataSource.Firmware.Add (new Firmware( "Tiger", "Production", false, true ));
-			DataSource.Firmware.Add (new Firmware( "Lynx", "Beta", false, false ));
-			DataSource.Firmware.Add (new Firmware( "Cheetah", "Minimum Compatible", true, true ));
+			DataSource.Firmware.Add (new Firmware( "Tiger", "Production", "6.0.51", "", false, true ));
+			DataSource.Firmware.Add (new Firmware( "Lynx", "Beta", "6.0.69", "", false, false ));
+			DataSource.Firmware.Add (new Firmware( "Cheetah", "Minimum Compatible", "5.1.33", "4.1", true, true ));
 
 			// Populate the Firmware Table
 			FirmwareTable.DataSource = DataSource;
