@@ -53,6 +53,16 @@ namespace FirmwareXMLGen
 
 			// Setup view based on the column selected
 			switch (tableColumn.Title) {
+			case "":
+				NSButton deleteButtonView = (NSButton)tableView.MakeView (CellIdentifier, this);
+				if (deleteButtonView == null) {
+					deleteButtonView = new NSButton ();
+					deleteButtonView.Identifier = CellIdentifier;
+					deleteButtonView.Bordered = false;
+					deleteButtonView.SetButtonType (NSButtonType.MomentaryPushIn);
+				}
+				deleteButtonView.Title = "x";
+				return deleteButtonView;
 			case "Family":
 				view.StringValue = DataSource.Firmware [(int)row].Family;
 				break;
