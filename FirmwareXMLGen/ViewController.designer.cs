@@ -50,6 +50,9 @@ namespace FirmwareXMLGen
 
 		[Action ("createFiles:")]
 		partial void createFiles (Foundation.NSObject sender);
+
+		[Action ("deleteFW:")]
+		partial void deleteFW (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{

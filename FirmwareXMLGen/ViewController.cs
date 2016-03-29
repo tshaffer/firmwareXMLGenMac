@@ -30,6 +30,8 @@ namespace FirmwareXMLGen
 			}
 		}
 
+		partial void deleteFW (Foundation.NSObject sender) {
+		}
 
 		partial void browseForExistingFile (Foundation.NSObject sender) {
 			
@@ -67,8 +69,7 @@ namespace FirmwareXMLGen
 			}
 		}
 
-		partial void createFiles (Foundation.NSObject sender) {
-		
+		partial void createFiles (Foundation.NSObject sender) {	
 			FirmwareXmlGenShared.FirmwareXmlGen.Create(existingFile.StringValue, outputFolder.StringValue, outputFile.StringValue);
 		}
 

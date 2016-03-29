@@ -35,6 +35,12 @@ namespace FirmwareXMLGen
 		}
 		#endregion
 
+		void HandleActivated (object sender, EventArgs e)
+		{
+			Console.WriteLine("Event Handled --->>"+ DateTime.Now.ToString());
+			int row = (sender as NSButton).Tag;
+		}
+
 		#region Override Methods
 		public override NSView GetViewForItem (NSTableView tableView, NSTableColumn tableColumn, nint row)
 		{
@@ -62,6 +68,12 @@ namespace FirmwareXMLGen
 					deleteButtonView.SetButtonType (NSButtonType.MomentaryPushIn);
 				}
 				deleteButtonView.Title = "x";
+				deleteButtonView.Tag = row;
+
+				EventHandler myEventHandler;
+				myEventHandler = new EventHandler (HandleActivated);
+				deleteButtonView.Activated += myEventHandler;
+
 				return deleteButtonView;
 			case "Family":
 				view.StringValue = DataSource.Firmware [(int)row].Family;
@@ -85,7 +97,7 @@ namespace FirmwareXMLGen
 					buttonView.SetButtonType (NSButtonType.Switch);
 				}
 				buttonView.Title = "";
-				buttonView.State = NSCellStateValue.On;
+				buttonView.State = stateOn ? NSCellStateValue.On : NSCellStateValue.Off;
 				return buttonView;
 			case "Don't Download":
 				bool dontDownloadOn = DataSource.Firmware [(int)row].DontDownload;
@@ -97,7 +109,7 @@ namespace FirmwareXMLGen
 					dontDownloadButtonView.SetButtonType (NSButtonType.Switch);
 				}
 				dontDownloadButtonView.Title = "";
-				dontDownloadButtonView.State = NSCellStateValue.Off;
+				dontDownloadButtonView.State = dontDownloadOn ? NSCellStateValue.On : NSCellStateValue.Off;
 				return dontDownloadButtonView;
 			}
 

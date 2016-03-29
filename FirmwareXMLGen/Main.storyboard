@@ -775,6 +775,9 @@
                                                     <buttonCell key="dataCell" type="push" title="X" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="dFV-Bf-CCh">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
+                                                        <connections>
+                                                            <action selector="deleteFW:" target="XfG-lQ-9wD" id="p0d-bd-DuI"/>
+                                                        </connections>
                                                     </buttonCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
