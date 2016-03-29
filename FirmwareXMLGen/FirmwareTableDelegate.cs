@@ -38,7 +38,7 @@ namespace FirmwareXMLGen
 		void HandleActivated (object sender, EventArgs e)
 		{
 			Console.WriteLine("Event Handled --->>"+ DateTime.Now.ToString());
-			int row = (sender as NSButton).Tag;
+//			int row = (int)(sender as NSButton).Tag;
 		}
 
 		#region Override Methods
@@ -47,14 +47,19 @@ namespace FirmwareXMLGen
 			// This pattern allows you reuse existing views when they are no-longer in use.
 			// If the returned view is null, you instance up a new view
 			// If a non-null view is returned, you modify it enough to reflect the new data
-			NSTextField view = (NSTextField)tableView.MakeView (CellIdentifier, this);
-			if (view == null) {
-				view = new NSTextField ();
-				view.Identifier = CellIdentifier;
-				view.BackgroundColor = NSColor.Clear;
-				view.Bordered = false;
-				view.Selectable = false;
-				view.Editable = false;
+
+			NSTextField view = null;
+
+			if (tableColumn.DataCell is NSTextFieldCell) {
+				view = (NSTextField)tableView.MakeView (CellIdentifier, this);
+				if (view == null) {
+					view = new NSTextField ();
+					view.Identifier = CellIdentifier;
+					view.BackgroundColor = NSColor.Clear;
+					view.Bordered = false;
+					view.Selectable = false;
+					view.Editable = false;
+				}
 			}
 
 			// Setup view based on the column selected
