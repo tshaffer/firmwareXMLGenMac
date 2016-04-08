@@ -82,9 +82,20 @@
     <Compile Include="Firmware.cs" />
     <Compile Include="FirmwareTableDataSource.cs" />
     <Compile Include="FirmwareTableDelegate.cs" />
+    <Compile Include="ProbeWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
+  <ItemGroup>
+    <NativeReference Include="obj\Debug\libmedia.dll">
+      <IsCxx>False</IsCxx>
+      <Kind>Static</Kind>
+    </NativeReference>
+    <NativeReference Include="libmedia.dll">
+      <IsCxx>False</IsCxx>
+      <Kind>Static</Kind>
+    </NativeReference>
+  </ItemGroup>
 </Project>

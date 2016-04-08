@@ -83,6 +83,10 @@ namespace FirmwareXMLGen
 
 		partial void createFiles (Foundation.NSObject sender) {
 
+
+			string filePath = "/Users/tedshaffer/Documents/All Media/Videos/0arc.mp4";
+			string foo = ProbeWrapper.GetProbeData(filePath);
+
 			// update the firmwareFiles data structure based on what's in the table
 
 			NSTableView fwTable = FirmwareTable;
